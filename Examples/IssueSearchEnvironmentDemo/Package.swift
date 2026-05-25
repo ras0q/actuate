@@ -24,7 +24,7 @@ let package = Package(
                 .product(name: "Actuate", package: "Actuate")
             ],
             path: "Sources/IssueSearchEnvironmentDemo"
-        ),
+        )
     ],
     swiftLanguageModes: [.v6]
 )

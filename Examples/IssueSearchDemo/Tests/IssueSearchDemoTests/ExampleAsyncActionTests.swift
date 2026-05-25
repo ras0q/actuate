@@ -1,5 +1,5 @@
-import Foundation
 import Actuate
+import Foundation
 import Testing
 
 @testable import IssueSearchDemo

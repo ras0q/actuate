@@ -1,5 +1,5 @@
-import Foundation
 import ActuateCore
+import Foundation
 import Testing
 
 private struct TestError: Error, Sendable {
@@ -119,7 +119,8 @@ struct ActuatorTests {
     func forceRerun() async {
         let actuator = Actuator<Int, Int>()
         await actuator.run(input: 1, policy: .custom(removesDuplicates: { $0 == $1 })) { _ in 1 }
-        await actuator.run(input: 1, force: true, policy: .custom(removesDuplicates: { $0 == $1 })) {
+        await actuator.run(input: 1, force: true, policy: .custom(removesDuplicates: { $0 == $1 }))
+        {
             _ in 2
         }
         #expect(actuator.phase.output == 2)
