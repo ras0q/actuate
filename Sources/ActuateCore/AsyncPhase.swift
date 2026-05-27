@@ -5,6 +5,30 @@ public enum AsyncPhase<Output: Sendable>: Sendable {
     case failure(any Error & Sendable, previous: Output?)
 }
 
+extension AsyncPhase: Equatable where Output: Equatable {
+    public static func == (lhs: AsyncPhase<Output>, rhs: AsyncPhase<Output>) -> Bool {
+        switch (lhs, rhs) {
+        case (.idle, .idle):
+            return true
+        case (.loading(let lhsPrevious), .loading(let rhsPrevious)):
+            return lhsPrevious == rhsPrevious
+        case (.success(let lhsOutput), .success(let rhsOutput)):
+            return lhsOutput == rhsOutput
+        case (.failure(let lhsError, let lhsPrevious), .failure(let rhsError, let rhsPrevious)):
+            return lhsPrevious == rhsPrevious && isEquivalent(lhsError, rhsError)
+        default:
+            return false
+        }
+    }
+
+    private static func isEquivalent(
+        _ lhs: any Error & Sendable,
+        _ rhs: any Error & Sendable
+    ) -> Bool {
+        type(of: lhs) == type(of: rhs) && String(describing: lhs) == String(describing: rhs)
+    }
+}
+
 extension AsyncPhase {
     public var isIdle: Bool {
         if case .idle = self { return true }

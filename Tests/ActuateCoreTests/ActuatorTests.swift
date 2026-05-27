@@ -9,6 +9,21 @@ private struct TestError: Error, Sendable {
 @Suite("Actuator")
 @MainActor
 struct ActuatorTests {
+    @Test("phase supports equatable comparisons")
+    func asyncPhaseEquatable() {
+        #expect(AsyncPhase<Int>.idle == .idle)
+        #expect(AsyncPhase<Int>.loading(previous: 1) == .loading(previous: 1))
+        #expect(AsyncPhase<Int>.success(42) == .success(42))
+        #expect(
+            AsyncPhase<Int>.failure(TestError(message: "failed"), previous: 1)
+                == .failure(TestError(message: "failed"), previous: 1)
+        )
+        #expect(AsyncPhase<Int>.failure(TestError(message: "failed"), previous: 1) != .failure(
+            TestError(message: "other"),
+            previous: 1
+        ))
+    }
+
     @Test("run transitions loading to success")
     func runSuccess() async {
         let actuator = Actuator<String, Int>()
