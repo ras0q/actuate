@@ -10,7 +10,30 @@ Requires Swift 6+, iOS 17+, macOS 14+, Observation, and SwiftUI.
 
 ## Usage
 
-Declare an `AsyncAction` for the operation, pass input from `.task(id:)` or a button, and render UI from `phase`.
+Create an `AsyncAction` for the async work, call `run(input:)`, and render UI from `phase`.
+
+```swift
+private var loadUser = AsyncAction { userID in
+    try await userRepository.fetchUser(userID)
+}
+
+Button("Load") {
+    Task {
+        await loadUser.run(input: userID)
+    }
+}
+
+switch loadUser.phase {
+case .idle:
+    Text("Tap Load")
+case .loading:
+    ProgressView()
+case .success(let user):
+    Text(user.name)
+case .failure(let error, _):
+    Text(error.localizedDescription)
+}
+```
 
 ### Debounced search
 
