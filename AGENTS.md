@@ -40,4 +40,4 @@ open Examples/ActuateExamples.xcworkspace
 - Follow existing module boundaries and naming.
 - Prefer minimal, focused diffs.
 - Do not add architecture layers beyond Actuate v1 scope (no ViewModel, Store, Reducer, etc.).
-- Run `swift build` and `swift test` after substantive changes.
+- Run `swift format -ir .`, `swift format lint -rs.`, `swift build` and `swift test` after substantive changes.
