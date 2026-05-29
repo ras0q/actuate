@@ -9,7 +9,7 @@ struct AsyncActionObservationTests {
     func phaseObservation() async {
         let action = AsyncAction { (_: String) in 7 }
         #expect(action.phase.isIdle)
-        await action.run(input: "x")
+        await action.run("x")
         #expect(action.phase.output == 7)
     }
 }

@@ -26,7 +26,7 @@ struct AddCommentExampleView: View {
             phase: addComment.phase,
             onSubmit: {
                 Task {
-                    await addComment.run(input: addCommentInput)
+                    await addComment.run(addCommentInput)
                 }
             }
         )

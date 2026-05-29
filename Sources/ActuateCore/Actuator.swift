@@ -13,7 +13,7 @@ public final class Actuator<Input: Sendable, Output: Sendable> {
     public init() {}
 
     public func run(
-        input: Input,
+        _ input: Input,
         force: Bool = false,
         policy: AsyncActionPolicy<Input>,
         operation: @escaping @Sendable (Input) async throws(any Error & Sendable) -> Output

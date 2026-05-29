@@ -28,9 +28,9 @@ public struct EnvironmentAsyncAction<Dependency: Sendable, Input: Sendable, Outp
         actuator.phase
     }
 
-    public func run(input: Input, force: Bool = false) async {
+    public func run(_ input: Input, force: Bool = false) async {
         await actuator.run(
-            input: input,
+            input,
             force: force,
             policy: policy,
             operation: { input in

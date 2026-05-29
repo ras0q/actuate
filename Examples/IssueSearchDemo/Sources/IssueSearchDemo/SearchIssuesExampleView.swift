@@ -32,12 +32,12 @@ struct SearchIssuesExampleView: View {
             phase: searchIssues.phase,
             onRetry: {
                 Task {
-                    await searchIssues.run(input: searchInput, force: true)
+                    await searchIssues.run(searchInput, force: true)
                 }
             }
         )
         .task(id: searchInput) {
-            await searchIssues.run(input: searchInput)
+            await searchIssues.run(searchInput)
         }
     }
 }

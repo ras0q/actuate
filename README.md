@@ -10,7 +10,7 @@ Requires Swift 6+, iOS 17+, macOS 14+, Observation, and SwiftUI.
 
 ## Usage
 
-Create an `AsyncAction` for the async work, call `run(input:)`, and render UI from `phase`.
+Create an `AsyncAction` for the async work, call `run(_:)`, and render UI from `phase`.
 
 ```swift
 private var loadUser = AsyncAction { userID in
@@ -19,7 +19,7 @@ private var loadUser = AsyncAction { userID in
 
 Button("Load") {
     Task {
-        await loadUser.run(input: userID)
+        await loadUser.run(userID)
     }
 }
 
@@ -51,7 +51,7 @@ private var searchInput: SearchIssuesInput { ... }
 var body: some View {
     content
         .task(id: searchInput) {
-            await searchIssues.run(input: searchInput)
+            await searchIssues.run(searchInput)
         }
 }
 ```
@@ -69,7 +69,7 @@ init(issueRepository: any IssueRepository) {
 
 Button("Submit") {
     Task {
-        await addComment.run(input: addCommentInput)
+        await addComment.run(addCommentInput)
     }
 }
 .disabled(addComment.phase.isLoading)
@@ -89,7 +89,7 @@ private var searchIssues = EnvironmentAsyncAction(\.issueRepository, policy: .de
 ```swift
 Button("Retry") {
     Task {
-        await searchIssues.run(input: searchInput, force: true)
+        await searchIssues.run(searchInput, force: true)
     }
 }
 ```

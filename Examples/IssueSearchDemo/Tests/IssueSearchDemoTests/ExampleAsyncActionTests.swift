@@ -21,7 +21,7 @@ struct ExampleAsyncActionTests {
         )
 
         await actuator.run(
-            input: input,
+            input,
             policy: AsyncActionPolicy.debounced(for: .milliseconds(50))
         ) { input in
             try await repository.searchIssues(input)
@@ -48,10 +48,10 @@ struct ExampleAsyncActionTests {
             pageSize: 20
         )
 
-        await actuator.run(input: successInput, policy: .refresh) { input in
+        await actuator.run(successInput, policy: .refresh) { input in
             try await repository.searchIssues(input)
         }
-        await actuator.run(input: failureInput, policy: .refresh) { input in
+        await actuator.run(failureInput, policy: .refresh) { input in
             try await repository.searchIssues(input)
         }
 
@@ -67,7 +67,7 @@ struct ExampleAsyncActionTests {
         let actuator = Actuator<AddCommentInput, IssueDetail>()
         let input = AddCommentInput(issueID: 1, body: "Ship it")
 
-        await actuator.run(input: input, policy: .onDemand) { input in
+        await actuator.run(input, policy: .onDemand) { input in
             try await repository.addComment(input)
         }
 

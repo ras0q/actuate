@@ -20,8 +20,8 @@ public struct AsyncAction<Input: Sendable, Output: Sendable>: DynamicProperty {
         actuator.phase
     }
 
-    public func run(input: Input, force: Bool = false) async {
-        await actuator.run(input: input, force: force, policy: policy, operation: operation)
+    public func run(_ input: Input, force: Bool = false) async {
+        await actuator.run(input, force: force, policy: policy, operation: operation)
     }
 
     public func cancel() {
